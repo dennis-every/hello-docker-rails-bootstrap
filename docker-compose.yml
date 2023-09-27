@@ -19,6 +19,7 @@ services:
       - DATABASE_URL=postgres://postgres:password@db:5432/postgres
     volumes:
       - '.:/app'
+      - 'ruby-bundle-cache:/bundle'
 
   js:
     build: 
@@ -38,3 +39,4 @@ services:
 
 volumes:
   dbdata:
+  ruby-bundle-cache:

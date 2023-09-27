@@ -1,4 +1,6 @@
-FROM ruby:3.2-alpine
+ARG RUBY_VERSION=3.2.2
+
+FROM ruby:$RUBY_VERSION-alpine
 
 WORKDIR /app
 
@@ -12,8 +14,9 @@ RUN apk add --update \
     && rm -rf /var/cache/apk/*
 
 COPY Gemfile* ./
-ENV BUNDLE_PATH /gems
-RUN bundle config set force_ruby_platform true
+VOLUME /bundle
+RUN bundle config set --global path '/bundle'
+ENV PATH="/bundle/ruby/$RUBY_VERSION/bin:${PATH}"
 RUN bundle install
 
 COPY package.json *yarn* ./
