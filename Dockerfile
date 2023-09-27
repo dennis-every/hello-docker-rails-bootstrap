@@ -21,6 +21,6 @@ RUN yarn install
 
 COPY . .
 
-CMD ["bin/dev"]
+CMD ["bin/rails", "server", "--binding", "0.0.0.0"]
 
 EXPOSE 3000
