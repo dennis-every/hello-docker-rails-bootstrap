@@ -10,7 +10,7 @@ services:
      - "dbdata:/var/lib/postgresql/data"
   
   web:
-    build: .
+    build: '.'
     ports:
       - "3000:3000"
     depends_on:
@@ -18,7 +18,23 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:password@db:5432/postgres
     volumes:
-      - .:/app
+      - '.:/app'
+
+  js:
+    build: 
+      context: '.'
+    tty: true    
+    volumes:
+      - '.:/app'
+    command: 'yarn build --watch'
+
+  css:
+    build: 
+      context: '.'
+    tty: true    
+    volumes:
+      - '.:/app'
+    command: 'yarn watch:css'
 
 volumes:
   dbdata:
